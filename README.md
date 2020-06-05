@@ -1,7 +1,7 @@
 # simple JS snake game
  
-This is a simple JavaScript snake game. Some simple canvases have been created at snake.html. The whole functionality
-is implemented at snake.js where the initialisation and movement of the snake has been implemented, the food spawn after
+This is a simple JavaScript snake game. Two canvases have been created at snake.html ( One for the main game and one that displays the elements of the game (score, level, highscore) ).
+The whole functionality is implemented at snake.js where the initialisation and movement of the snake have been implemented, the food spawn after
 checking that there are no collisions e.t.c. Finally, you can check or change the simple ( but beautiful, I think :> ) 
 design of the project (snake.css). 
 
@@ -23,7 +23,7 @@ In this version snake wraps around the board. In order for the player to lose wh
 you can change snake.js code. Go to game function and change snakeWrap(true) to snakeWrap(false). You can of course make any other changes you like.
 <br><div align="center"><img src="images/snake_wrap.png" alt="image1"></div><br>
 
-### The snake can be moved either with arrow buttons or w,a,s,d buttons from the keyboard.
+### The snake can be moved either by pressing the arrow buttons or w,a,s,d buttons from the keyboard.
 
 <div align="center"><img src="images/controls.png" alt="image1"></div>
 
