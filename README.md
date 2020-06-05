@@ -1,9 +1,19 @@
-<div align="center"><img src="images/Screenshot_2.png" alt="image1"></div>
-
-# simple js snake game
+# simple JS snake game
  
-simple javascript snake game
+This is a simple JavaScript snake game. Some simple canvases have been created at snake.html. The whole functionality
+is implemented at snake.js where the initialisation and movement of the snake has been implemented, the food spawn after
+checking that there are no collisions e.t.c. Finally, you can check or change the simple ( but beautiful, I think :> ) 
+design of the project (snake.css). 
+
+## Screenshots
+
+### Screenshot showing the game as it has progressed a bit and player is at level 2 controlling a bigger snake
+
 <div align="center"><img src="images/Screenshot_1.png" alt="image1"></div>
+
+### Screenshot showing the snake at the beginning of the game
+
+<div align="center"><img src="images/Screenshot_2.png" alt="image1"></div>
 
 ## Gameplay and Controls
 
