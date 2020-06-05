@@ -3,7 +3,9 @@
 This is a simple JavaScript snake game. Two canvases have been created at snake.html ( One for the main game and one that displays the elements of the game (score, level, highscore) ).
 The whole functionality is implemented at snake.js where the initialisation and movement of the snake have been implemented, the food spawn after
 checking that there are no collisions e.t.c. Finally, you can check or change the simple ( but beautiful, I think :> ) 
-design of the project (snake.css). 
+design of the project (snake.css).
+
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org) 
 
 ## Screenshots
 
