@@ -1,25 +1,25 @@
 window.onload = function () {
-	canv = document.getElementById("mainCanvas");
-	canv2  = document.getElementById("canvasTop");
-	ctx  = canv.getContext("2d");
-	ctx2 = canv2.getContext("2d");
+	canvasMain = document.getElementById("mainCanvas");
+	canvasSmall  = document.getElementById("canvasTop");
+	ctx  = canvasMain.getContext("2d");
+	ctx2 = canvasSmall.getContext("2d");
 	document.addEventListener("keydown", snakeControls);
 	setInterval(game, 1000 / gameSpeed); 
 }
 
 //variables
 var gameSpeed = 17;			// >25 very fast, 1000/20 pretty fast, 1000/15 normal to fast, <10 slow
-var gridSize = 24; 			// 24x24 board
+var gridSize = 24; 			// the grid size => 24x24 board
 var tileCount = gridSize;
 var player_x = gridSize / 2;
 var player_y = player_x; 	// player position (middle of the board at [gridSize/2,gridSize/2])
 var food_x = 15 			// initial food horizontal location
 var food_y = 15; 			// initial food vertical location
 var previouscase = "";
-var x_velocity = 0;
-var y_velocity = 0;
+var x_velocity = 0;			// direction of the snake [horizontally]
+var y_velocity = 0;			// direction of the snake [vertically]
 var trail = [];
-var tail = 5;
+var tail = 3;				// tail size (including head)
 var score = 0;
 var finalscore = 0;
 var level = 1;
@@ -27,29 +27,23 @@ var pointsCnt = 0;
 
 
 function game() {
-	player_x += x_velocity;
-	player_y += y_velocity;
+	player_x += x_velocity; // snake move horizontally
+	player_y += y_velocity; // snake move vertically
 
-	snakeWrap(true); // if snake wraps around the board or not
-
+	// if snake wraps around the board or not
+	snakeWrap(true); 
 	// Initialise canvas values
 	InitialiseCanvas(ctx);
 	InitialiseCanvas(ctx2);
-
-	ctx2.fillText("Score " + score, 470, 34);
-	ctx2.fillText("BestScore " + finalscore, 15, 34);
-	ctx2.fillText("Level " + level, 270, 34);
-
-	ctx.fillStyle = "black";
-	ctx.fillRect(0, 50, canv.width, canv.height);
-	ctx.fillStyle = "white";
+	// Display game elements (score, level , e.t.c.)
+	DisplayScore(ctx2);
 	
 	for (var i = 0; i < trail.length; i++) {
 		ctx.fillStyle = ( i == trail.length - 1 )? "white" : "white"; // we may have wanted the head to have different color from the body
 		ctx.fillRect(trail[i].x * gridSize, trail[i].y * gridSize, gridSize - 2, gridSize - 2);
 		// the player loses when the snake runs into its tail
 		if (trail[i].x == player_x && trail[i].y == player_y) 
-			PlayerLose('hitTail');
+			PlayerReset (/*because player*/ 'hitTail');
 	}
 
 	trail.push({
@@ -57,9 +51,8 @@ function game() {
 		y: player_y
 	});
 	
-	while (trail.length > tail) {
+	while (trail.length > tail) 
 		trail.shift();
-	}
 
 	// food has been collected
 	if (food_x == player_x && food_y == player_y) {
@@ -81,8 +74,8 @@ function game() {
 function GetFoodsLocation() {
 	do {
 		// random position
-		food_x = Math.floor(Math.random() * tileCount);
-		food_y = Math.floor(Math.random() * tileCount);
+		food_x = Math.floor(Math.random() * (tileCount - 1));
+		food_y = Math.floor(Math.random() * (tileCount - 1));
 	} while (trail.some(hasPoint)); // while food has been spawned on an empty location
 }
 
@@ -141,10 +134,17 @@ function snakeControls(evt) {
 
 function InitialiseCanvas(canvasCtx) {
 	canvasCtx.fillStyle = "black";
-	canvasCtx.fillRect(0, 0, canv.width, canv.height);
+	canvasCtx.fillRect(0, 0, canvasMain.width, canvasMain.height);
 	canvasCtx.font = '20pt Arial';
 	canvasCtx.fillStyle = "white";
 	canvasCtx.strokeStyle = "white";
+}
+
+
+function DisplayScore(canvasCtx) {
+	canvasCtx.fillText("Score " + score, 450, 34);
+	canvasCtx.fillText("BestScore " + finalscore, 25, 34);
+	canvasCtx.fillText("Level " + level, 260, 34);
 }
 
 
@@ -154,12 +154,12 @@ function PlaceFood() {
 }
 
 
-function PlayerLose(reason) {
-	if (score > finalscore)
+function PlayerReset(reason) {
+	if (score > finalscore)  /*user got a new highscore*/
 		finalscore = score;
-	score = 0;
-	tail = 5;
-	level = 1;
+	score = 0;					
+	tail = 3;	// tail size (including head)
+	level = 1;				
 	pointsCnt = 0;
 
 	if(reason != 'wall') return;
@@ -183,12 +183,12 @@ function snakeWrap(wrapBool) {
 		
 		if (player_y > tileCount - 1) 
 			player_y = 0;
+		
+		return;
 	} 
-	else {
-		// snake wraps around the board
-		if ((player_x < 0) || (player_x > tileCount - 1) || (player_y < 0) || (player_y > tileCount - 1)) {
-			PlayerLose('wall');
-			alert("You lost! Press OK to restart the game...");
-		}
+	// else snake wraps around the board
+	if ((player_x < 0) || (player_x > tileCount - 1) || (player_y < 0) || (player_y > tileCount - 1)) {
+		PlayerReset (/*because player hit a*/ 'wall');
+		alert("You lost! Press OK to restart the game...");
 	}
 }
