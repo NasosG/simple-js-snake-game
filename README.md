@@ -34,4 +34,4 @@ you can change snake.js code. Go to game function and change snakeWrap(true) to 
 The project is available as open source under the terms of the MIT License.
 
 - **[MIT license](http://opensource.org/licenses/mit-license.php)**
-- Copyright 2020 © <a href="http://fvcproductions.com" target="_blank">NasosG</a>.
+- Copyright 2020 © <a href="https://github.com/NasosG" target="_blank">NasosG</a>.
