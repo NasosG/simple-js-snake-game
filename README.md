@@ -29,7 +29,7 @@ you can change snake.js code. Go to game function and change snakeWrap(true) to 
 
 <div align="center"><img src="images/controls.png" alt="image1"></div>
 
-## 📝 License
+## 📝 &nbsp; License
 
 The project is available as open source under the terms of the MIT License.
 
